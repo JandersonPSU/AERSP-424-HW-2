@@ -13,6 +13,7 @@ using namespace std;
 // Define the Sensor class
 class Sensor
 {
+
 public:
 
     // Virtual destructor to make sure no issue pop up with derived class objects
@@ -23,4 +24,52 @@ public:
 
     // Pure virtual function to "process" the "gathered data"
     virtual void processData() const = 0;
+};
+
+class Air_Speed_Sensor:public Sensor
+{
+
+public:
+
+    void gatherData() const
+    {
+        cout << "Gathering data from <Air Speed> Sensor \n";
+    }
+    void processData() const
+    {
+        cout << "Processing data from <Air Speed> Sensor" << \n ;
+    }
+
+};
+
+class Altitude_Sensor:public Sensor
+{
+
+public:
+
+    void gatherData() const 
+    {
+        cout << "Gathering data from <Altitude> sensor \n";
+    }
+    void processData() const
+    {
+        cout << "Processing data from <Altitude Sensor> \n";
+    }
+
+};
+
+class Ang_Of_Attck_Sensor:public Sensor
+{
+
+public:
+
+    void gatherData() const
+    {
+        cout << "Gathering data from <Angle of Attack> Sensor \n";
+    }
+    void processData() const
+    {
+        cout << "Processing data from <Angle of Attack> Sensor \n";
+    }
+
 };
