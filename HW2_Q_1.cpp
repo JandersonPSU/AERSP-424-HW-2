@@ -33,11 +33,11 @@ public:
 
     void gatherData() const
     {
-        cout << "Gathering data from <Air Speed> Sensor \n";
+        cout << "Gathering data from <Air Speed> Sensor"<< endl;
     }
     void processData() const
     {
-        cout << "Processing data from <Air Speed> Sensor" << \n ;
+        cout << "Processing data from <Air Speed> Sensor" << endl;
     }
 
 };
@@ -49,11 +49,11 @@ public:
 
     void gatherData() const 
     {
-        cout << "Gathering data from <Altitude> sensor \n";
+        cout << "Gathering data from <Altitude> Sensor" << endl;
     }
     void processData() const
     {
-        cout << "Processing data from <Altitude Sensor> \n";
+        cout << "Processing data from <Altitude Sensor>" << endl;
     }
 
 };
@@ -65,11 +65,12 @@ public:
 
     void gatherData() const
     {
-        cout << "Gathering data from <Angle of Attack> Sensor \n";
+        cout << "Gathering data from <Angle of Attack> Sensor" << endl;
     }
     void processData() const
     {
-        cout << "Processing data from <Angle of Attack> Sensor \n";
+        cout << "Processing data from <Angle of Attack> Sensor" << endl;
     }
 
 };
+
