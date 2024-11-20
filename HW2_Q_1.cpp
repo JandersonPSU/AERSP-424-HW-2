@@ -74,3 +74,33 @@ public:
 
 };
 
+class SensorFactory 
+{
+public:
+
+    static Sensor* createSensor(const string& sensorType) 
+    
+    {
+        if (sensorType == "Air_Speed_Sensor") 
+        {
+            return new Air_Speed_Sensor();
+        } 
+        
+        else if (sensorType == "Altitude_Sensor") 
+        {
+            return new Altitude_Sensor();
+        } 
+        
+        else if (sensorType == "Ang_Of_Attck_Sensor") 
+        {
+            return new Ang_Of_Attck_Sensor();
+        } 
+        
+        else 
+        {
+            return nullptr; 
+        }
+
+    }
+
+};
