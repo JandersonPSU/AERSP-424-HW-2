@@ -133,3 +133,26 @@ public:
     }
 
 };
+
+// 5. The “main()” function, 
+
+int main() 
+{
+
+    AerospaceControlSystem ctrlSys;
+
+    Sensor* Air_Speed_Sensor = SensorFactory::createSensor("Air_Speed_Sensor");
+    ctrlSys.addSensor(Air_Speed_Sensor);
+
+    Sensor* Altitude_Sensor = SensorFactory::createSensor("Altitude_Sensor");
+    ctrlSys.addSensor(Altitude_Sensor);
+
+    Sensor* Ang_Of_Attck_Sensor = SensorFactory::createSensor("Ang_Of_Attck_Sensor");
+    ctrlSys.addSensor(Ang_Of_Attck_Sensor);
+
+    ctrlSys.monitorAndAdjust();
+
+    return 0;
+}
+
+// 
