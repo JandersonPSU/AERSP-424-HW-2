@@ -104,3 +104,32 @@ public:
     }
 
 };
+
+// 4. Implement a control system class “AerospaceControlSystem”
+
+class AerospaceControlSystem
+{
+
+private:
+
+    vector<Sensor*> sensors;  
+
+public:
+    
+    void addSensor(Sensor* sensor) 
+    {
+        sensors.push_back(sensor);
+    }
+
+    
+    void monitorAndAdjust() 
+    {
+        for (Sensor* sensor : sensors) 
+        {
+            sensor->gatherData();  
+            sensor->processData();  
+            cout << "Adjusting controls based on sensor data." << endl;
+        }
+    }
+
+};
