@@ -1,5 +1,6 @@
 // AERSP 424 HW 2 - Question 3 - Jack, Peter, Sean
 
+// NEED TO ADD A FUNCTION FOR ATC THREAD, BUT THE OUTPUT ON THE HW HAS NO COMMUNICATION FROM ATC//
 #include <iostream>
 #include <thread>
 #include <mutex>
