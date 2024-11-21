@@ -28,7 +28,7 @@ void aircraft(int id) // id is the number assigned to a specific aircraft (1-10)
 {
     {
         unique_lock<mutex> lock(mute);
-        cout << "Aircraft #" << id << " requesting landing." << endl;
+        fprintf(stdout, "Aircraft # %d requesting landing.\n", id);
 
         while (airspaceQue.size() >= airMax) // Check if the airspace is at capacity
 
@@ -38,7 +38,7 @@ void aircraft(int id) // id is the number assigned to a specific aircraft (1-10)
 
         airspaceQue.push(id); // If the airspace is open, an aircraft may enter
 
-        if (SleepATC) 
+        if (SleepATC)
 
         {
             SleepATC = false; // Wake up the ATC if they are sleeping
@@ -51,7 +51,7 @@ void aircraft(int id) // id is the number assigned to a specific aircraft (1-10)
         condition.wait(lock, [&] { return RunwayClear.load() && airspaceQue.front() == id; });
 
         RunwayClear = false; // Set runway as not clear when an aircraft is landing
-        cout << "Aircraft #" << id << " is cleared to land." << endl;
+        fprintf(stdout, "Aircraft # %d is cleared to land.\n", id);
         airspaceQue.pop();
 
         lock.unlock();
@@ -59,7 +59,7 @@ void aircraft(int id) // id is the number assigned to a specific aircraft (1-10)
         this_thread::sleep_for(chrono::seconds(1)); // The landing will occur, only taking a second
 
         lock.lock();
-        cout << "Runway is now free." << endl;
+        fprintf(stdout, "Runway is now free.\n");
         RunwayClear = true; // Set runway as clear after the previous airplae has landed
         condition.notify_all();
 
