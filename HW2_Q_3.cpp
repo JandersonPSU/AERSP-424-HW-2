@@ -1,7 +1,7 @@
 // AERSP 424 HW 2 - Question 3 - Jack, Peter, Sean
 // Some print statements commented out to match the output given but they are still relevant 
 
-/* Attempt #1
+// Attempt #1     
 
 const int airMax = 3; // Maximum number of airplanes in the airspace
 const int aircraftTot = 10; // Total number of airplanes for this simulation
@@ -95,9 +95,9 @@ int main()
     return 0;
 }
 
-*/
 
-// Attempt #2
+
+/* Attempt #2
 
 #include <iostream>
 #include <vector>
@@ -288,6 +288,6 @@ int main()
     return 0;
 
 }
-
+*/
 
 
