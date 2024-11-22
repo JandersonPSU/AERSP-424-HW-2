@@ -1,17 +1,8 @@
 // AERSP 424 HW 2 - Question 3 - Jack, Peter, Sean
 // Some print statements commented out to match the output given but they are still relevant 
-#include <iostream>
-#include <vector>
-#include <chrono>
-#include <thread>
-#include <mutex>
-#include <queue>
 
-using namespace std;
-using namespace chrono;
+/* Attempt #1
 
-
-/* First Version of the HW
 const int airMax = 3; // Maximum number of airplanes in the airspace
 const int aircraftTot = 10; // Total number of airplanes for this simulation
 queue<int> airspaceQue; // Queue for airplanes currently in the airspace  
@@ -106,13 +97,21 @@ int main()
 
 */
 
-// Debuged Version of the HW
+// Attempt #2
 
-// Code for the insomniac ATC controler
+#include <iostream>
+#include <vector>
+#include <chrono>
+#include <thread>
+#include <mutex>
+#include <queue>
 
-const int airMax = 3;
+using namespace std;
+using namespace chrono;
 
 mutex mut;
+
+// Code for the insomniac ATC controler
 
 class Air_Traffic_Controller
  {
@@ -145,6 +144,7 @@ public:
             cout << "The ATC falls asleep. ZZZzzz..."<<endl;
         }
     }
+
 
     void RemoveFromTrafficPatternQueue() 
     {
@@ -200,7 +200,7 @@ public:
     bool TrafficPatternCheck() const 
     {
 
-        return TrafficPatternQueue >= airMax;
+        return TrafficPatternQueue >= 3;
 
     }
 
@@ -236,9 +236,8 @@ void LandingFunc(Air_Traffic_Controller& ATC, double& LandingTime, int PlaneNum)
 
             cout << "Aircraft # " << PlaneNum <<" flying to the Newark Airport."<<endl;
             
+            return;
         }
-
-        return;
 
     }
     
@@ -289,5 +288,6 @@ int main()
     return 0;
 
 }
+
 
 
