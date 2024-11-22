@@ -174,5 +174,8 @@ int main()
     // Monitor and adjust the system based on the sensors' data
     ctrlSys.monitorAndAdjust();  // Call the method to monitor and adjust
 
+    std::cout << "Press Enter to close the program...";
+    std::cin.get(); // Waits for the user to press Enter
+    
     return 0;  // Return 0 to indicate successful execution
 }
