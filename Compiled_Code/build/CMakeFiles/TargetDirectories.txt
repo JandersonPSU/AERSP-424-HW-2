@@ -1,0 +1,6 @@
+C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build/CMakeFiles/HW2_Q_1.dir
+C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build/CMakeFiles/HW2_Q_2.dir
+C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build/CMakeFiles/HW2_Q_3.dir
+C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build/CMakeFiles/HW2_Q_4.dir
+C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,0 +1,10 @@
+^C:\USERS\PBACH\ONEDRIVE\DESKTOP\SCHOOLWORK\FALL24\AERSP424\HWS\HW2\FINAL_COMPILED_CODE\BUILD\CMAKEFILES\65FECB24B7DC1B27B39AFBDADB11DB49\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code -BC:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/pbach/OneDrive/Desktop/SchoolWork/Fall24/AERSP424/HWs/HW2/Final_Compiled_Code/build/HW2.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

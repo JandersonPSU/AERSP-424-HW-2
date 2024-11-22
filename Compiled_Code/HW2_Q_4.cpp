@@ -4,8 +4,7 @@
 #include <vector>
 #include <string>
 #include "opencv2/opencv.hpp"
-
-//struct for x and pressure coefficient data
+//data point struct
 struct DataPoint {
     double x;
     double pressureCoefficient;
@@ -14,33 +13,34 @@ struct DataPoint {
 int main() {
     std::ifstream file("surface_flow.csv"); // Open the CSV file
     if (!file.is_open()) {
-        std::cerr << "Failed to open file!" << std::endl; //throw error if the file doesnt open
+        std::cerr << "Failed to open file!" << std::endl; //sending an error if the file doesnt open
         return 1; //return code 1
     }
 
-    std::string line; //string for the line
+    std::string line; //setting string of the line
     std::getline(file, line); // Read the header row
 
     // Define the column indices (B -> 1, L -> 11)
     const int xColumnIndex = 1;  // Column B (0-based index)
     const int pressureColumnIndex = 11; // Column L (0-based index)
 
-    std::vector<DataPoint> data; //vector for the data
+    std::vector<DataPoint> data; //vector for data
 
     // Read each subsequent line
     while (std::getline(file, line)) {
         std::istringstream rowStream(line); //string stream
-        std::string value; //values
-        DataPoint dp; //starting struct
+        std::string value; //string for values
+        DataPoint dp; //struct dp
 
-        int colIndex = 0; //starting index for column
+        int colIndex = 0; //column index
+        //loop through columns
         while (std::getline(rowStream, value, ',')) {
-            if (colIndex == xColumnIndex) {
+            if (colIndex == xColumnIndex) { 
                 dp.x = std::stod(value); // Extract x value from column B
             } else if (colIndex == pressureColumnIndex) {
                 dp.pressureCoefficient = std::stod(value); // Extract Pressure_Coefficient from column L
             }
-            ++colIndex;
+            ++colIndex; //increment for loop
         }
 
         if (colIndex > std::max(xColumnIndex, pressureColumnIndex)) {
@@ -51,21 +51,21 @@ int main() {
     file.close(); // Close the file
 
     if (data.empty()) {
-        std::cerr << "No data to plot!" << std::endl;
-        return 1;
-    }
+        std::cerr << "No data to plot!" << std::endl; //printing error if empty
+        return 1; //return code 1
+    } 
 
     // Output the extracted data
-    std::cout << "Extracted Data:" << std::endl;
-    std::cout << "x, Pressure_Coefficient" << std::endl;
+    std::cout << "Extracted Data:" << std::endl; //printing headers for output data
+    std::cout << "x, Pressure_Coefficient" << std::endl; //printing headers for output data
     for (const auto& dp : data) {
-        std::cout << dp.x << ", " << dp.pressureCoefficient << std::endl;
+        std::cout << dp.x << ", " << dp.pressureCoefficient << std::endl; //outputting data from csv file
     }
 
     // Find min and max values for normalization
     double xMin = data.front().x, xMax = data.front().x;
     double yMin = data.front().pressureCoefficient, yMax = data.front().pressureCoefficient;
-
+    //Getting min and max of x and pressure
     for (const auto& dp : data) {
         xMin = std::min(xMin, dp.x);
         xMax = std::max(xMax, dp.x);
@@ -113,7 +113,7 @@ int main() {
 
     // Display the graph
     cv::imshow("Pressure Coefficient Plot", graph);
-    cv::waitKey(0); // Wait for a key press
+    cv::waitKey(0); // Wait for a key press to end
 
     return 0;
 }
