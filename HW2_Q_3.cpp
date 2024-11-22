@@ -1,18 +1,17 @@
 // AERSP 424 HW 2 - Question 3 - Jack, Peter, Sean
 // Some print statements commented out to match the output given but they are still relevant 
 #include <iostream>
+#include <vector>
+#include <chrono>
 #include <thread>
 #include <mutex>
-#include <random>
-#include <condition_variable>
 #include <queue>
-#include <atomic>
-#include <chrono>
 
 using namespace std;
+using namespace chrono;
 
-// Defining constants and variables 
 
+/* First Version of the HW
 const int airMax = 3; // Maximum number of airplanes in the airspace
 const int aircraftTot = 10; // Total number of airplanes for this simulation
 queue<int> airspaceQue; // Queue for airplanes currently in the airspace  
@@ -104,3 +103,191 @@ int main()
 
     return 0;
 }
+
+*/
+
+// Debuged Version of the HW
+
+// Code for the insomniac ATC controler
+
+const int airMax = 3;
+
+mutex mut;
+
+class Air_Traffic_Controller
+ {
+private: // Setting up required checks
+    bool Caffeine; // Check for if ATC is sleeping
+    bool Landing; // Check to see if runway is clear for landing
+
+    int TrafficPatternQueue; // Check used to see if to many planes are trying to land
+    queue<int> LandingQueue; // Check to see where a plane is in the landing queue
+
+public:
+
+    Air_Traffic_Controller() : Caffeine(true), Landing(true), TrafficPatternQueue(0) {}
+
+    void RedBull() 
+    {
+        Caffeine = false;
+        
+        cout << "BOO! The ATC is woken up."<<endl;
+    }
+
+    void NoCaffeine() 
+    {
+        
+        if (TrafficPatternQueue == 0) 
+
+        {  
+            Caffeine = true;
+            
+            cout << "The ATC falls asleep. ZZZzzz..."<<endl;
+        }
+    }
+
+    void RemoveFromTrafficPatternQueue() 
+    {
+        TrafficPatternQueue--;
+
+        cout << "Runway is now free."<<endl;
+        
+        Landing = true; 
+
+    
+        if (!LandingQueue.empty()) 
+        {
+
+            int LandingAircraft = LandingQueue.front();
+
+            LandingQueue.pop(); 
+
+            cout << "Aircraft # " << LandingAircraft << " is cleared to land."<<endl;
+            
+            Landing = false; 
+
+        }
+
+    }
+    
+    void AddToTrafficPatternQueue(int PlaneNum) 
+    {
+        TrafficPatternQueue++;
+        
+        cout << "Aircraft # " << PlaneNum << " requesting landing."<<endl;
+        
+        if (TrafficPatternQueue == 1 && Landing) 
+        { 
+            cout << "Aircraft # " << PlaneNum << " is cleared to land."<<endl;
+            
+            Landing = false; 
+        }
+
+        else
+        {
+            cout << "Aircraft # " << PlaneNum << " is waiting for runway clearance."<<endl;
+
+            LandingQueue.push(PlaneNum); 
+        }
+
+    }
+
+    bool CheckCaffeine() const 
+    {
+        return Caffeine;
+    }
+
+    bool TrafficPatternCheck() const 
+    {
+
+        return TrafficPatternQueue >= airMax;
+
+    }
+
+};
+
+// Debugging 140 ms is need to get to 5 seconds like shown in the example
+
+void LandingFunc(Air_Traffic_Controller& ATC, double& LandingTime, int PlaneNum) 
+{
+    auto StartTime = high_resolution_clock::now(); 
+
+    this_thread::sleep_for(milliseconds(140)); 
+
+    {
+        lock_guard<mutex> guard(mut); 
+        if (ATC.CheckCaffeine()) 
+
+        {
+            ATC.RedBull();
+        }
+
+        if (!ATC.TrafficPatternCheck()) 
+
+        {
+            ATC.AddToTrafficPatternQueue(PlaneNum);
+        }
+
+        else 
+        {
+            cout << "Aircraft # " << PlaneNum << " requesting landing."<<endl;
+
+            cout << "Approach pattern full. Aircraft #" << PlaneNum << " redirected to the Newark Airport."<<endl;
+
+            cout << "Aircraft # " << PlaneNum <<" flying to the Newark Airport."<<endl;
+            
+        }
+
+        return;
+
+    }
+    
+    this_thread::sleep_for(seconds(1));
+    {
+        lock_guard<mutex> guard(mut);
+
+        ATC.RemoveFromTrafficPatternQueue();
+
+        ATC.NoCaffeine();  
+    }
+
+    auto EndTime = high_resolution_clock::now(); 
+
+    auto LandingDuration = duration_cast<milliseconds>(EndTime - StartTime); 
+
+    LandingTime = LandingTime + LandingDuration.count(); 
+
+}
+
+int main() 
+{
+
+    Air_Traffic_Controller ATC;
+
+    vector<thread> MainThread;
+
+    double LandingTime = 0; 
+
+    for (int i = 0; i <= 9; i++) 
+
+    {
+        MainThread.emplace_back(LandingFunc, ref(ATC), ref(LandingTime), i);
+
+        this_thread::sleep_for(milliseconds(140)); 
+    }
+
+    for (auto& thread : MainThread) 
+
+    {
+        thread.join();
+    }
+
+    int LandingTimeInSecs = (LandingTime / 1000); 
+
+    cout << "duration : " << LandingTimeInSecs << " seconds."<<endl; 
+
+    return 0;
+
+}
+
+
