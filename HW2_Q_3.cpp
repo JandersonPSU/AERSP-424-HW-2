@@ -2,6 +2,14 @@
 // Some print statements commented out to match the output given but they are still relevant 
 
 // Attempt #1     
+#include <iostream>
+#include <vector>
+#include <chrono>
+#include <thread>
+#include <mutex>
+#include <queue>
+
+using namespace std;
 
 const int airMax = 3; // Maximum number of airplanes in the airspace
 const int aircraftTot = 10; // Total number of airplanes for this simulation
